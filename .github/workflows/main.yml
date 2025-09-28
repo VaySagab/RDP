@@ -1,10 +1,10 @@
-name: Yanzz RDP
+name: Vayvy RDepehh becekzz
 
 on:
   workflow_dispatch:
 
 jobs:
-  secure-rdp:
+  vayvy-rdp:
     runs-on: windows-latest
     timeout-minutes: 3600
 
@@ -36,23 +36,20 @@ jobs:
               Upper   = [char[]](65..90)      # A-Z
               Lower   = [char[]](97..122)     # a-z
               Number  = [char[]](48..57)      # 0-9
-              Special = ([char[]](33..47) + [char[]](58..64) +
-                         [char[]](91..96) + [char[]](123..126)) # Special characters
           }
           $rawPassword = @()
-          $rawPassword += $charSet.Upper | Get-Random -Count 4
-          $rawPassword += $charSet.Lower | Get-Random -Count 4
-          $rawPassword += $charSet.Number | Get-Random -Count 4
-          $rawPassword += $charSet.Special | Get-Random -Count 4
+          $rawPassword += $charSet.Upper | Get-Random -Count 1
+          $rawPassword += $charSet.Lower | Get-Random -Count 1
+          $rawPassword += $charSet.Number | Get-Random -Count 1
           $password = -join ($rawPassword | Sort-Object { Get-Random })
           $securePass = ConvertTo-SecureString $password -AsPlainText -Force
-          New-LocalUser -Name "Yanzz" -Password $securePass -AccountNeverExpires
-          Add-LocalGroupMember -Group "Administrators" -Member "Yanzz"
-          Add-LocalGroupMember -Group "Remote Desktop Users" -Member "Yanzz"
+          New-LocalUser -Name "Vayvy" -Password $securePass -AccountNeverExpires
+          Add-LocalGroupMember -Group "Administrators" -Member "Vayvy"
+          Add-LocalGroupMember -Group "Remote Desktop Users" -Member "Vayvy"
           
-          echo "RDP_CREDS=User: Yanzz | Password: $password" >> $env:GITHUB_ENV
+          echo "RDP_CREDS=User: Vayvy | Password: $password" >> $env:GITHUB_ENV
           
-          if (-not (Get-LocalUser -Name "Yanzz")) {
+          if (-not (Get-LocalUser -Name "Vayvy")) {
               Write-Error "User creation failed"
               exit 1
           }
@@ -102,7 +99,7 @@ jobs:
         run: |
           Write-Host "`n=== RDP ACCESS ==="
           Write-Host "Address: $env:TAILSCALE_IP"
-          Write-Host "Username: Yanzz"
+          Write-Host "Username: Vayvy"
           Write-Host "Password: $(echo $env:RDP_CREDS)"
           Write-Host "==================`n"
           
